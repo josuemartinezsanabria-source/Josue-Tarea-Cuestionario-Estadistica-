@@ -1,0 +1,91 @@
+---
+title: "Cuestionario Transporte y Trafico"
+author: "Josue Martinez"
+date: "2025-09-29"
+output: 
+html_document: 
+theme: cerulean  
+toc: true 
+toc_depth: 10
+---
+
+# Proposito del cuestionario
+
+Este cuestionario tiene como proposito dar a conocer las opiniones de las personas con respecto a algunos aspectos del transporte y el transito nacional.
+
+# Importancia del estudio
+
+La relevancia del estudio recae en poner a la vista los aspectos a mejorar de la transporte y transitonacional.
+
+# Poblacion meta
+
+Este cuestionario esta enfocado en las personas de entre 18 a 65 años que usen regularmente algun medio de transporte sea propio o no.
+
+# Objetivo General
+
+Dar a conocer los aspectos que el publico concidera que se deben de mejorar en el transporte del pais.
+
+#Formulario <https://docs.google.com/forms/d/e/1FAIpQLSdnAe0jgNc3sLbBnLLCZcT7ML2x-sKpIuHplV0Izq-60d41LQ/viewform?usp=header>
+
+```{r, include = FALSE}
+library(googlesheets4) 
+
+Transporte <- read_sheet (" https://docs.google.com/spreadsheets/d/1eDIj0Ps0NT17QbcFGl1IIezzHSYIPh9Y2ewmwDOfLPU/edit?usp=sharing") 
+```
+
+# Atrsasos por las presas
+
+```{r, include = FALSE}
+library(dplyr)
+install.packages("summarytools") 
+library(summarytools)
+{r, echo = TRUE } 
+dfSummary(Transporte$`¿Ah llegado tarde a algún lugar o compromiso por culpa de las presas?`)
+```
+
+Esto nos dice que la mayoria de los usuarios ah sufrido demoras en sus tiempos de viaje a causa de las presas
+
+# Vehiculo mas usado
+
+```{r, include = FALSE}
+library(summarytools) 
+{r, echo =  TRUE}
+dfSummary(Transporte$`¿Qué clase de vehículo utiliza mayormente para transportarse?`) 
+```
+
+Esto nos indica que que la mayoria de personas encuestadas utiliza un carro o automovil para transportarse, que si bien es un medio eficiente de transporte la mayoria de las veces se usa solo para mover a una persona
+
+# Por que utiliza este medio de transporte
+
+```{r, include = FALSE}
+library(summarytools)
+{r, echo = TRUE}
+dfSummary(Transporte$`¿Por que razón utiliza el medio de transporte que selecciono anteriormente?`) 
+```
+
+El motivo del por que la mayoria de personas utiliza el automovil para trasladarse es debido a que pueden salir cauando quieren, tienen libertad de transporte sin estar atados a horarios rigidos
+
+#Principales problemas en carretera
+
+```{r, echo = FALSE, warning = FALSE}
+library(ggplot2)
+
+ggplot(Transporte, aes(x = `¿Cuál carretera usa con mas frecuencia?`,  fill = `¿Cuál cree que es el principal problema que se enfrenta al transitar por las carreteras del país?`)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Comparacion de problemas en carreteras mas transitadas",
+       x = "Ruta",  
+       y = "Problema") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+Aqui podemos apreciar que los mayores problemas que enfrentan las personas encuestadas en las rutas que suelen usar con mas frecuencia (Florencio del castillo, interamericana sur, Ruta 32 ) son el mal estado de las carreteras, cuellos de botellas en las autopistas, y la gran carga vehicular. Los dos primeros se pueden soluciar dandoles mantenimiento constante a las carreteras y rediseñando las carreteras para que estas ayuden a la fluidez al trasitar en vez de entorpeserla, pero la carga vehicular es mas compleja, como vimos anteriormente la mayoria de los encuestados usan el carro para trasladarse a razon de ser mas facil movilizarse con el carro aunque este solo lleve a una persona. Entonces segun lo anterior prsentado se reduciria la carga vehicular si mas personas usaran el transporte publico que puede llevar a mas personas en un solo viaje reduciendo asi el numero de carros en carretera, pero como hacemos que las personas prefieran el transporte publico a un medio de transporte personal, haciendo que el transporte publico sea mejor que usar el carro.
+
+#Si mejora el transporte publico se reduce la carga vehicular
+
+```{r, echo = TRUE}
+dfSummary(Transporte$`¿Si se mejoraran las condiciones del transporte publico en termino de tiempos, condiciones de las unidades y calidad del servicio además de carriles exclusivos y mas unidades para mas rutas y viajes  lo usaría en vez de un medio de transporte personal?`)
+```
+
+Segun la encuesta, si se mejora las condiciones del transporte publico un 50% de los encuentasdos solo lo usaria para ir al trabajo o lugar de estudio es decir en horas pico, un 30% lo usaria siempre o en toda ocacion y un 20% seguiria usando un medio de transporte personal
