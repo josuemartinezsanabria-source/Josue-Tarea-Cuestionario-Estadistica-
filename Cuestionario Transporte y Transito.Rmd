@@ -4,7 +4,7 @@ author: "Josue Martinez"
 date: "2025-09-29"
 output: 
 html_document: 
-theme: cosmo 
+theme: cerulean  
 toc: true 
 toc_depth: 10
 ---
